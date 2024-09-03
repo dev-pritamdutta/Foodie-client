@@ -35,7 +35,7 @@ const Categories = () => {
   return (
     <div className="section-container py-16">
       <div className="text-center">
-        <p className="subtitle">Customer Favourite</p>
+        <p className="subtitle">---Customer Favourite---</p>
         <h2 className="title">Popular Categories</h2>
       </div>
       {/* category cards */}
