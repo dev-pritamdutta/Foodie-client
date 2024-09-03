@@ -2,6 +2,7 @@ import React from 'react'
 import Banner from '../../componenets/Banner'
 import Categories from './Categories'
 import SpecialDishes from './SpecialDishes'
+import Testimonial from './Testimonial'
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Banner/>
       <Categories/>
       <SpecialDishes/>
+      <Testimonial/>
     </div>
   )
 }
