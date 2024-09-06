@@ -8,7 +8,7 @@ const Cards = ({ item }) => {
     setIsHeartFillted(!isHeartFillted);
   };
   return (
-    <div className="card bg-base-100 w-96 shadow-xl relative">
+    <div to = {`/menu/${item._id}`} className="card bg-base-100 w-96 shadow-xl relative md:my-10">
       <div
         className={`rating gap-1 absolute right-0 top-2 p-4 heartStar bg-green ${
           isHeartFillted ? "text-rose-500" : "text-white"
@@ -17,7 +17,7 @@ const Cards = ({ item }) => {
       >
         <FaHeart className="h-5 w-5 cursor-pointer" />
       </div>
-      <Link to={`/menu/${item.id}`}>
+      <Link to={`/menu/${item._id}`}>
         <figure>
           <img
             src={item.image}

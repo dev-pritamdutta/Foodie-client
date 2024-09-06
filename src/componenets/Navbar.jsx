@@ -25,14 +25,14 @@ const Navbar = () => {
   const navItems = (
     <>
       <li>
-        <a href="">Home</a>
+        <a href="/">Home</a>
       </li>
       <li>
         <details>
           <summary>Menu</summary>
           <ul className="p-2">
             <li>
-              <a href="#">All</a>
+              <a href="/menu">All</a>
             </li>
             <li>
               <a href="#">Salad</a>
