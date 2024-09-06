@@ -13,7 +13,7 @@
     "recipe": "Sautéed breaded veal escalope with watercress, lemon and veal jus.",
     "image": "/recipes/soup1.png",
     "category": "soup",
-    "price": 9.5
+    "price": 5
   },
   {
     "_id": "642c155b2c4774f05c36ee88",
@@ -21,7 +21,7 @@
     "recipe": "Pan roasted haddock fillet wrapped in smoked French bacon with pea purée and tomato and chive vinaigrette",
     "image": "/recipes/des1.png",
     "category": "dessert",
-    "price": 12.5
+    "price": 7.5
   },
   {
     "_id": "642c155b2c4774f05c36eeaa",
@@ -29,11 +29,11 @@
     "recipe": "Chargrilled fresh tuna steak (served medium rare) on classic Niçoise salad with French beans.",
     "image": "/recipes/img1.png",
     "category": "salad",
-    "price": 15
+    "price": 20
   },
   {
     "_id": "642c155b2c4774f05c36ee94",
-    "name": "Margherita Delight",
+    "name": "Zargherita Delight",
     "recipe": "Pan roasted haddock fillet wrapped in smoked French bacon with pea purée and tomato and chive vinaigrette",
     "image": "/recipes/pz1.png",
     "category": "pizza",
@@ -41,7 +41,7 @@
   },
   {
     "_id": "642c155b2c4774f05c36ee7c",
-    "name": "Escalope de Veau",
+    "name": "ASMR duck breast",
     "recipe": "Roasted duck breast (served pink) with gratin potato and a griottine cherry sauce",
     "image": "/recipes/img1.png",
     "category": "popular",

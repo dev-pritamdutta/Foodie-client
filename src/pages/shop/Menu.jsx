@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../home/Cards";
+import { FaFilter } from "react-icons/fa";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -13,7 +14,7 @@ const Menu = () => {
       try {
         const response = await fetch("/menu.json");
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setMenu(data);
         setFilteredItems(data);
       } catch (error) {
@@ -40,16 +41,17 @@ const Menu = () => {
   // sorting based on A-z, Z-A, low-high pricing
   const handleSortChange = (option) => {
     setSortOption(option);
+    console.log(option);
 
     let sortedItems = [...filteredItems];
 
     //logic
     switch (option) {
       case "A-Z":
-        sortedItems.sort((a, b) => a.name.localCompare(b.name));
+        sortedItems.sort((a, b) => a.name.localeCompare(b.name));
         break;
       case "Z-A":
-        sortedItems.sort((a, b) => b.name.localCompare(a.name));
+        sortedItems.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case "low-high":
         sortedItems.sort((a, b) => a.price - b.price);
@@ -62,7 +64,6 @@ const Menu = () => {
         break;
     }
     setFilteredItems(sortedItems);
-    f;
   };
   // function to count items in each category
   const countItemsInCategory = (category) => {
@@ -92,49 +93,69 @@ const Menu = () => {
       </div>
       {/* loding data */}
       <div className="section-container py-10">
-        {/* All Category button */}
-        <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap category">
-          <button
-            onClick={showAll}
-            className={selectedCategory === "all" ? "active" : ""}
-          >
-            ALL ({menu.length})
-          </button>
-          <button
-            onClick={() => filterItems("salad")}
-            className={selectedCategory === "salad" ? "active" : ""}
-          >
-            SALAD ({countItemsInCategory("salad")})
-          </button>
-          <button
-            onClick={() => filterItems("pizza")}
-            className={selectedCategory === "pizza" ? "active" : ""}
-          >
-            PIZZA ({countItemsInCategory("pizza")})
-          </button>
-          <button
-            onClick={() => filterItems("soup")}
-            className={selectedCategory === "soup" ? "active" : ""}
-          >
-            SOUP ({countItemsInCategory("soup")})
-          </button>
-          <button
-            onClick={() => filterItems("dessert")}
-            className={selectedCategory === "dessert" ? "active" : ""}
-          >
-            DESSERT ({countItemsInCategory("dessert")})
-          </button>
-          <button
-            onClick={() => filterItems("drinks")}
-            className={selectedCategory === "drinks" ? "active" : ""}
-          >
-            DRINKS ({countItemsInCategory("drinks")})
-          </button>
+        {/* All Category button and sort option */}
+        <div className="flex flex-col md:flex-row flex-wrap md:justify-between items-center mb-8">
+          {/*category button */}
+          <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap category">
+            <button
+              onClick={showAll}
+              className={selectedCategory === "all" ? "active" : ""}
+            >
+              ALL ({menu.length})
+            </button>
+            <button
+              onClick={() => filterItems("salad")}
+              className={selectedCategory === "salad" ? "active" : ""}
+            >
+              SALAD ({countItemsInCategory("salad")})
+            </button>
+            <button
+              onClick={() => filterItems("pizza")}
+              className={selectedCategory === "pizza" ? "active" : ""}
+            >
+              PIZZA ({countItemsInCategory("pizza")})
+            </button>
+            <button
+              onClick={() => filterItems("soup")}
+              className={selectedCategory === "soup" ? "active" : ""}
+            >
+              SOUP ({countItemsInCategory("soup")})
+            </button>
+            <button
+              onClick={() => filterItems("dessert")}
+              className={selectedCategory === "dessert" ? "active" : ""}
+            >
+              DESSERT ({countItemsInCategory("dessert")})
+            </button>
+            <button
+              onClick={() => filterItems("drinks")}
+              className={selectedCategory === "drinks" ? "active" : ""}
+            >
+              DRINKS ({countItemsInCategory("drinks")})
+            </button>
+          </div>
+
+          {/* sort option */}
+          <div className="flex justify-end rounded-sm bg-black mt-1">
+            <div className="bg-black p-3">
+              <FaFilter className="h-4 w-4  text-white" />
+            </div>
+            <select
+              name="sort"
+              id="sort"
+              onChange={(e) => handleSortChange(e.target.value)}
+              value={sortOption}
+              className="bg-black text-white px-2 py-1 rounded-sm"
+            >
+              <option value="default">Default</option>
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+              <option value="low-high">Low to High</option>
+              <option value="high-low">High to Low</option>
+            </select>
+          </div>
         </div>
-        {/* sorting base filtering */}
-        <div>
-          <div></div>
-        </div>
+
         {/* product */}
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 py-10">
           {filteredItems.map((item) => (
