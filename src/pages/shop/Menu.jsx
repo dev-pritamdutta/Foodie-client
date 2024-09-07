@@ -7,6 +7,8 @@ const Menu = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortOption, setSortOption] = useState("default");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
 
   // loading data
   useEffect(() => {
@@ -32,11 +34,13 @@ const Menu = () => {
         : menu.filter((item) => item.category === category);
     setFilteredItems(filtered);
     setSelectedCategory(category);
+    setCurrentPage(1);
   };
   // show all data
   const showAll = () => {
     setFilteredItems(menu);
     setSelectedCategory("all");
+    setCurrentPage(1);
   };
   // sorting based on A-z, Z-A, low-high pricing
   const handleSortChange = (option) => {
@@ -64,11 +68,17 @@ const Menu = () => {
         break;
     }
     setFilteredItems(sortedItems);
+    setCurrentPage(1);
   };
   // function to count items in each category
   const countItemsInCategory = (category) => {
     return menu.filter((item) => item.category === category).length;
   };
+  // pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="">
@@ -158,10 +168,24 @@ const Menu = () => {
 
         {/* product */}
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 py-10">
-          {filteredItems.map((item) => (
+          {currentItems.map((item) => (
             <Cards key={item._id} item={item} />
           ))}
         </div>
+      </div>
+      {/* pagination section */}
+      <div className="flex justify-center my-8">
+        {Array.from({
+          length: Math.ceil(filteredItems.length / itemsPerPage),
+        }).map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={`mx-1 px-3 py-1 rounded-full ${currentPage === index + 1 ? "bg-green text-white" : "bg-gray-200"}`}
+          >
+            {index + 1}
+          </button>
+        ))}
       </div>
     </div>
   );
