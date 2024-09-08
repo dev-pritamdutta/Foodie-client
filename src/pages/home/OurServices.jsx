@@ -12,19 +12,19 @@ const serviceLists = [
     image: img1,
   },
   {
-    id: 1,
+    id: 2,
     title: "Catering",
     des: "delight your guest with our flavour and presentation",
     image: img2,
   },
   {
-    id: 1,
+    id: 3,
     title: "Online Ordering",
     des: "delight your guest with our flavour and presentation",
     image: img3,
   },
   {
-    id: 1,
+    id: 4,
     title: "Gift Cards",
     des: "delight your guest with our flavour and presentation",
     image: img4,

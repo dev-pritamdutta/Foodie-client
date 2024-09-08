@@ -12,7 +12,6 @@ const Banner = () => {
           <div className="flex flex-col md:flex-row items-center justify-around -mt-14 ml-10">
             {/* banner img-2 */}
             <div className="flex bg-white rounded-2xl items-center gap-3 shadow-md">
-              
               <div className="space-y-1 px-5">
                 <h5>Spicy noodles</h5>
                 <div className="rating rating-sm">
@@ -25,7 +24,6 @@ const Banner = () => {
                     type="radio"
                     name="rating-2"
                     className="mask mask-star-2 bg-yellow-500"
-                    
                   />
                   <input
                     type="radio"
@@ -71,7 +69,6 @@ const Banner = () => {
                     type="radio"
                     name="rating-2"
                     className="mask mask-star-2 bg-yellow-500"
-                    
                   />
                   <input
                     type="radio"
@@ -98,16 +95,17 @@ const Banner = () => {
         {/* left-text */}
         <div className="md:w-1/2 space-y-7 px-4">
           <h2 className="md:text-5xl text-4xl font-bold leading-snug md:leading-snug">
-            Lorem ipsum dolor sit amet. <span className="text-green">Food</span>{" "}
+            Discover a world of <span className="text-green mr-2">flavors</span>
+            right at your fingertips!
           </h2>
           <p className="text-xl text-[#4a4a4a]">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, et!
+            We bring you the finest recipes, expert cooking tips, and delicious
+            inspiration from around the globe.
           </p>
           <button className="btn bg-green px-8 py-3 font-semibold text-white rounded-full">
             Order Now
           </button>
         </div>
-        
       </div>
     </div>
   );

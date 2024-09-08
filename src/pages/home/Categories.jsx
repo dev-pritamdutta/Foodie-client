@@ -1,8 +1,8 @@
 import React from "react";
-import img1 from '../../assets/home/category/img1.png'
-import img2 from '../../assets/home/category/img2.png'
-import img3 from '../../assets/home/category/img3.png'
-import img4 from '../../assets/home/category/img4.png'
+import img1 from "../../assets/home/category/img1.png";
+import img2 from "../../assets/home/category/img2.png";
+import img3 from "../../assets/home/category/img3.png";
+import img4 from "../../assets/home/category/img4.png";
 
 const categoryItems = [
   {
@@ -43,7 +43,7 @@ const Categories = () => {
         {categoryItems.map((item, i) => (
           <div
             key={i}
-            className="shadow-lg rounded-md bg-white py-6 px-5 w-72 mx-auto text-center cursor-pointer hover:-translate-y-4 duration-300 transition-all"
+            className="shadow-lg rounded-md w-80 md:w-64  bg-white py-6 px-5  mx-auto text-center cursor-pointer hover:-translate-y-4 duration-300 transition-all"
           >
             <div className="flex w-full mx-auto items-center justify-center">
               <img
