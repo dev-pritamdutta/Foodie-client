@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../home/Cards";
 import { FaFilter } from "react-icons/fa";
+import menuBanner1 from "/random/menu2.jpg";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -82,9 +83,34 @@ const Menu = () => {
 
   return (
     <div className="">
-      <div className="section-container bg-gradient-to-r from-[#fafafa] from-0% to-[#fcfcfc] to-100% ">
+      <div className="section-container ">
         {/* menu text */}
-        <div className="py-48 flex flex-col justify-center items-center gap-8">
+        <div
+          className="hero min-h-[650px] mt-20"
+          style={{
+            backgroundImage:
+              `url(${menuBanner1})`,
+          }}
+        >
+          <div className="hero-overlay bg-opacity-70"></div>
+          <div className="hero-content text-neutral-content text-center">
+            <div className="space-y-2">
+            <h2 className="md:text-5xl text-5xl font-bold leading-snug md:leading-snug">
+              For the Love of Delicious
+              <span className="text-green ml-2">Food</span>
+            </h2>
+            <p className="text-xl text-white">
+              A vegetarian delight, our falafel wrap features crispy chickpea
+              falafel balls, creamy hummus, <br /> and fresh veggies, all
+              drizzled with smooth tahini sauce.
+            </p>
+            <button className="btn  bg-green hover:bg-gray-800  px-8 py-3 font-semibold text-white rounded-full">
+              Order Now
+            </button>
+            </div>
+          </div>
+        </div>
+        {/* <div className="py-48 flex flex-col justify-center items-center gap-8">
           <div className="text-center px-4 space-y-7">
             <h2 className="md:text-5xl text-5xl font-bold leading-snug md:leading-snug">
               For the Love of Delicious
@@ -99,7 +125,7 @@ const Menu = () => {
               Order Now
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* loding data */}
       <div className="section-container py-10">
@@ -181,7 +207,9 @@ const Menu = () => {
           <button
             key={index + 1}
             onClick={() => paginate(index + 1)}
-            className={`mx-1 px-3 py-1 rounded-full ${currentPage === index + 1 ? "bg-green text-white" : "bg-gray-200"}`}
+            className={`mx-1 px-3 py-1 rounded-full ${
+              currentPage === index + 1 ? "bg-green text-white" : "bg-gray-200"
+            }`}
           >
             {index + 1}
           </button>
