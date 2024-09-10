@@ -104,7 +104,7 @@ const Menu = () => {
               falafel balls, creamy hummus, <br /> and fresh veggies, all
               drizzled with smooth tahini sauce.
             </p>
-            <button className="btn  bg-green hover:bg-gray-800  px-8 py-3 font-semibold text-white rounded-full">
+            <button className="btn bg-green hover:bg-gray-800  px-8 py-3 font-semibold text-white rounded-full">
               Order Now
             </button>
             </div>

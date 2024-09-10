@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../public/logo.png";
+import logo from "../../public/logo2.png";
 import { BiPhoneCall } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa";
 import Modal from "./Modal";
@@ -104,8 +104,11 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <a href="/">
+          {/* <a href="/">
             <img src={logo} alt="" />
+          </a> */}
+          <a href="/" className=" flex justify-center items-center text-teal-900 text-4xl font-bold">
+            <img className="w-14 " src={logo} alt="" /> Organic
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">

@@ -1,12 +1,19 @@
 import React from "react";
-import logo from '/logo.png'
+import logo from "/logo2.png";
 
 const Footer = () => {
   return (
-    <footer className="footer xl:px-24 py-10 px-4 text-base-content">
+    <footer className="footer section-container xl:px-24 py-10 px-4 text-base-content">
       <aside>
-       <img src={logo} alt="" />
-        <p className="my-5">Savor the artistry every dish is a culinary masterpiece</p>
+        <a
+          href="/"
+          className=" flex justify-center items-center text-lime-400 text-4xl font-bold"
+        >
+          <img className="w-14 " src={logo} alt="" /> Organic
+        </a>
+        <p className="my-5">
+          Savor the artistry every dish is a culinary masterpiece
+        </p>
       </aside>
       <nav>
         <h6 className="footer-title">Useful links</h6>

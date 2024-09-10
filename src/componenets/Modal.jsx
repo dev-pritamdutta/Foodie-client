@@ -1,16 +1,90 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Modal = () => {
+  const {
+    register,
+    handleSubmit,
+
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4">Press ESC key or click the button below to close</p>
-        <div className="modal-action">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn">Close</button>
+        <div className="modal-action flex flex-col justify-center mt-0">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            method="dialog"
+            className="card-body"
+          >
+            <h3 className="font-bold text-2xl text-center">Please Login!</h3>
+            {/* email */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="email"
+                className="input input-bordered"
+                {...register("email")}
+              />
+            </div>
+            {/* password */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="password"
+                className="input input-bordered"
+                {...register("password")}
+              />
+              <label className="label mt-1">
+                <a href="#" className="label-text-alt link link-hover">
+                  Forgot password?
+                </a>
+              </label>
+            </div>
+            {/* error text */}
+
+            {/* login btn */}
+            <div className="form-control mt-6">
+              <input
+                type="submit"
+                value="Login"
+                className="btn text-white bg-green hover:bg-gray-800"
+              />
+            </div>
+            <p className="text-cente my-2">
+              Do not have an account?{" "}
+              <Link to="/signup" className="text-blue-500 underline ml-1">
+                Signup Now.
+              </Link>{" "}
+            </p>
+            <button
+            htmlFor = "my_modal_5"
+            onClick={()=>document.getElementById('my_modal_5').close()}
+             className="btn btn-md btn-circle btn-ghost absolute right-3 top-2">X</button>
           </form>
+          {/* social sign btn */}
+          <div className="text-center space-x-3 mb-5">
+            <button className="btn text-xl  btn-circle hover:bg-blue-600 hover:text-white">
+              <FaGoogle />
+            </button>
+            <button className="btn text-xl btn-circle hover:bg-blue-600 hover:text-white">
+              <FaFacebook />
+            </button>
+            <button className="btn text-xl btn-circle hover:bg-blue-600 hover:text-white">
+              <FaTwitter />
+            </button>
+          </div>
         </div>
       </div>
     </dialog>
