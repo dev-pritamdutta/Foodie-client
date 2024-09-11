@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../public/logo2.png";
 import { BiPhoneCall } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa";
 import Modal from "./Modal";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
   // handle scroll function-
   useEffect(() => {
     const handleScroll = () => {
@@ -107,7 +111,10 @@ const Navbar = () => {
           {/* <a href="/">
             <img src={logo} alt="" />
           </a> */}
-          <a href="/" className=" flex justify-center items-center text-teal-900 text-4xl font-bold">
+          <a
+            href="/"
+            className=" flex justify-center items-center text-teal-900 text-4xl font-bold"
+          >
             <img className="w-14 " src={logo} alt="" /> Organic
           </a>
         </div>
@@ -158,12 +165,13 @@ const Navbar = () => {
           </div>
           {/* contact-btn */}
           <button
-          onClick={()=>document.getElementById('my_modal_5').showModal()}
-           className="btn bg-green hover:bg-gray-800 rounded-full px-6 text-white flex items-center gap-2">
-           <FaRegUser/>
+            onClick={() => document.getElementById("my_modal_5").showModal()}
+            className="btn bg-green hover:bg-gray-800 rounded-full px-6 text-white flex items-center gap-2"
+          >
+            <FaRegUser />
             Login
           </button>
-          <Modal/>
+          <Modal />
         </div>
       </div>
     </header>
