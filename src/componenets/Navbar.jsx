@@ -71,7 +71,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <header className="w-full z-10 mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
+    <header className="w-full z-10  mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
       <div
         className={`navbar xl:px-24 ${
           isSticky
@@ -163,10 +163,10 @@ const Navbar = () => {
               <span className="badge badge-sm indicator-item">8</span>
             </div>
           </div>
-          {/* contact-btn */}
+          {/* login-btn */}
           <button
             onClick={() => document.getElementById("my_modal_5").showModal()}
-            className="btn bg-green hover:bg-gray-800 rounded-full px-6 text-white flex items-center gap-2"
+            className="btn mr-2 bg-green hover:bg-gray-800 rounded-full px-6 text-white flex items-center gap-2"
           >
             <FaRegUser />
             Login

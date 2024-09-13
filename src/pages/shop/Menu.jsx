@@ -110,22 +110,7 @@ const Menu = () => {
             </div>
           </div>
         </div>
-        {/* <div className="py-48 flex flex-col justify-center items-center gap-8">
-          <div className="text-center px-4 space-y-7">
-            <h2 className="md:text-5xl text-5xl font-bold leading-snug md:leading-snug">
-              For the Love of Delicious
-              <span className="text-green ml-2">Food</span>{" "}
-            </h2>
-            <p className="text-xl text-[#4a4a4a]">
-              A vegetarian delight, our falafel wrap features crispy chickpea
-              falafel balls, creamy hummus, <br /> and fresh veggies, all
-              drizzled with smooth tahini sauce.
-            </p>
-            <button className="btn bg-green px-8 py-3 font-semibold text-white rounded-full">
-              Order Now
-            </button>
-          </div>
-        </div> */}
+
       </div>
       {/* loding data */}
       <div className="section-container py-10">
@@ -172,7 +157,7 @@ const Menu = () => {
           </div>
 
           {/* sort option */}
-          <div className="flex justify-end rounded-sm bg-black mt-1">
+          <div className="flex justify-end rounded-sm bg-black mt-1 ">
             <div className="bg-black p-3">
               <FaFilter className="h-4 w-4  text-white" />
             </div>
