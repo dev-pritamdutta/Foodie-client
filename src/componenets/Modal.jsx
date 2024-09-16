@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Modal = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
+
+  const { signInWithGmail } = useContext(AuthContext);
+
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  //google login
+  const handleGoogleLogin = () => {
+    signInWithGmail()
+      .then((result) => {
+        const user = result.user;
+        alert("login successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
       <div className="modal-box">
@@ -69,13 +85,19 @@ const Modal = () => {
               </Link>{" "}
             </p>
             <button
-            htmlFor = "my_modal_5"
-            onClick={()=>document.getElementById('my_modal_5').close()}
-             className="btn btn-md btn-circle btn-ghost absolute right-3 top-2">X</button>
+              htmlFor="my_modal_5"
+              onClick={() => document.getElementById("my_modal_5").close()}
+              className="btn btn-md btn-circle btn-ghost absolute right-3 top-2"
+            >
+              X
+            </button>
           </form>
           {/* social sign btn */}
           <div className="text-center space-x-3 mb-5">
-            <button className="btn text-xl  btn-circle hover:bg-blue-600 hover:text-white">
+            <button
+              onClick={handleGoogleLogin}
+              className="btn text-xl  btn-circle hover:bg-blue-600 hover:text-white"
+            >
               <FaGoogle />
             </button>
             <button className="btn text-xl btn-circle hover:bg-blue-600 hover:text-white">
