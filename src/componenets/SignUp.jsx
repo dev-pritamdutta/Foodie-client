@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const SignUp = () => {
   const {
@@ -10,9 +11,23 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { createUser, login } = useContext(AuthContext);
+  // user created
   const onSubmit = (data) => {
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        alert("User created successfully");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMsg = error.message;
+      });
   };
+
   return (
     <div className="max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20 relative">
       <div className="modal-action flex flex-col justify-center mt-0">
@@ -77,7 +92,7 @@ const SignUp = () => {
             X
           </Link>
         </form>
-        
+
         {/* modal */}
         <Modal />
         {/* social sign btn */}
@@ -92,7 +107,6 @@ const SignUp = () => {
             <FaTwitter />
           </button>
         </div>
-        
       </div>
     </div>
   );
