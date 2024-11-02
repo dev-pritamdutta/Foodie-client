@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Modal = () => {
@@ -10,24 +10,31 @@ const Modal = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
- 
+
   const { signInWithGmail, login } = useContext(AuthContext);
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
 
+  // redirecting-----------
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
     login(email, password)
-    .then(result =>{
-      const user = result.user;
-      alert("login successfully");
-    })
-    .catch(error =>{
-      const errorMessage  = error.message;
-      setErrorMessage("Provide a correct email and password!");
-    })
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        alert("login successfully");
+        document.getElementById("my_modal_5").close();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setErrorMessage("Provide a correct email and password!");
+      });
   };
 
   //google login
@@ -36,6 +43,7 @@ const Modal = () => {
       .then((result) => {
         const user = result.user;
         alert("login successfully");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -82,9 +90,11 @@ const Modal = () => {
               </label>
             </div>
             {/* error text */}
-            {
-              errorMessage ? <p className="text-red text-xs italic my-1">{errorMessage}</p> : ""
-            }
+            {errorMessage ? (
+              <p className="text-red text-xs italic">{errorMessage}</p>
+            ) : (
+              ""
+            )}
 
             {/* login btn */}
             <div className="form-control mt-6">

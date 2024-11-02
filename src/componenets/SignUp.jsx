@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { AuthContext } from "../contexts/AuthProvider";
 
@@ -13,6 +13,12 @@ const SignUp = () => {
   } = useForm();
 
   const { createUser, login } = useContext(AuthContext);
+
+  // redirecting to homepage-----------
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   // user created
   const onSubmit = (data) => {
     const email = data.email;
@@ -21,6 +27,8 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         alert("User created successfully");
+        document.getElementById("my_modal_5").close();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
