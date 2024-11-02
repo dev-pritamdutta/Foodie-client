@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../componenets/Navbar";
 import Footer from "../componenets/Footer";
+import { AuthContext } from "../contexts/AuthProvider";
+import LoadingSpinner from "../componenets/LoadingSpinner";
 
 const Main = () => {
+  const { loading } = useContext(AuthContext);
   return (
-    <div>
-      <Navbar />
-      <div className="min-h-screen">
-        <Outlet />
-      </div>
+    <div className="bg-primaryBg">
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div>
+          <Navbar />
+          <div className="min-h-screen">
+            <Outlet />
+          </div>
 
-      <Footer />
+          <Footer />
+        </div>
+      )}
     </div>
   );
 };
