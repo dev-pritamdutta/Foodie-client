@@ -5,6 +5,7 @@ import "../App.css";
 import Menu from "../pages/shop/Menu";
 import SignUp from "../componenets/SignUp";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
+import UpdateProfile from "../pages/dashboard/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         element:<PrivateRouter>
           <Menu/>
         </PrivateRouter>
+      },{
+        path: "/update-profile",
+        element: <UpdateProfile/>
+
       },
     ],
   },
