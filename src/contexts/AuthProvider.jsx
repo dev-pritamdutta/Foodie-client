@@ -36,7 +36,8 @@ const AuthProvider = ({ children }) => {
 
   //logout
   const logOut = () => {
-    signOut(auth);
+   return signOut(auth);
+    
   };
 
   //update profile
@@ -49,14 +50,15 @@ const AuthProvider = ({ children }) => {
 
   // check singed in user
   useEffect(()=>{
-  const unsubscribe =  onAuthStateChanged(auth, (currentUser) => {
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if(currentUser){
         setUser(currentUser);
-        setLoading(false);
+        
       }
       else{
-
+        setUser (null);
       }
+      setLoading(false);
     })
     return () =>{
       return unsubscribe();

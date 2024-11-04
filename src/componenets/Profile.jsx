@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaCircleUser } from "react-icons/fa6";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Profile = ({ user }) => {
+  const{logOut} = useContext(AuthContext);
+  const handleLogOut = () =>{
+    logOut().then(() => {
+      alert("User logged out");
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
   return (
     <div>
       <div className="drawer drawer-end z-20">
@@ -38,7 +47,7 @@ const Profile = ({ user }) => {
               <a>Setting</a>
             </li>
             <li>
-              <a>LogOut</a>
+              <a onClick={handleLogOut}>LogOut</a>
             </li>
           </ul>
         </div>
