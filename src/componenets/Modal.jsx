@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
+import { handleGoogleSignIn } from "./UtilityFun/authUtils";
 
 const Modal = () => {
   const {
@@ -37,20 +38,33 @@ const Modal = () => {
       });
   };
 
-  //google login
-  const handleGoogleLogin = () => {
-    signInWithGmail()
-      .then((result) => {
-        const user = result.user;
-        alert("login successfully");
-        //close the modal
-        document.getElementById("my_modal_5").close();
-        navigate("/", { replace: true });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  /*google login
+  // const handleGoogleLogin = () => {
+  //   signInWithGmail()
+  //     .then((result) => {
+  //       const user = result.user;
+  //       alert("login successfully");
+  //       //close the modal
+  //       document.getElementById("my_modal_5").close();
+  //       navigate(from, { replace: true });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+  */
+
+  //google login with utilties function
+  const onGoogleLoginSuccess = (user) => {
+    alert("Logged in successfully with Google");
+    document.getElementById("my_modal_5").close();
+    navigate(from, { replace: true });
   };
+
+  const handleGoogleLogin = () => {
+    handleGoogleSignIn(signInWithGmail, onGoogleLoginSuccess);
+  };
+
 
   return (
     <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">

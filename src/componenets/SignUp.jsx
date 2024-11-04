@@ -4,6 +4,7 @@ import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { AuthContext } from "../contexts/AuthProvider";
+import { handleGoogleSignIn } from "./UtilityFun/authUtils";
 
 const SignUp = () => {
   const {
@@ -12,7 +13,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser, login } = useContext(AuthContext);
+  const { createUser, login, signInWithGmail } = useContext(AuthContext);
 
   // redirecting to homepage-----------
   const location = useLocation();
@@ -34,6 +35,17 @@ const SignUp = () => {
         const errorCode = error.code;
         const errorMsg = error.message;
       });
+  };
+
+  // google login with utility functions
+
+  const onGoogleSignUpSuccess = (user) => {
+    alert("User  created successfully with Google");
+    navigate(from, { replace: true });
+  };
+
+  const handleGoogleSignUp = () => {
+    handleGoogleSignIn(signInWithGmail, onGoogleSignUpSuccess);
   };
 
   return (
@@ -105,7 +117,10 @@ const SignUp = () => {
         <Modal />
         {/* social sign btn */}
         <div className="text-center space-x-3 mb-5">
-          <button className="btn text-xl  btn-circle hover:bg-blue-600 hover:text-white">
+          <button
+            onClick={handleGoogleSignUp}
+            className="btn text-xl btn-circle hover:bg-blue-600 hover:text-white"
+          >
             <FaGoogle />
           </button>
           <button className="btn text-xl btn-circle hover:bg-blue-600 hover:text-white">
