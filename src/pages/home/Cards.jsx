@@ -4,9 +4,16 @@ import { Link } from "react-router-dom";
 
 const Cards = ({ item }) => {
   const [isHeartFillted, setIsHeartFillted] = useState(false);
+// heart click
   const handleHeartClick = () => {
     setIsHeartFillted(!isHeartFillted);
   };
+
+  //add to cart  
+  const handleAddToCart = (item) => {
+    console.log('btn is clicked');
+  }
+
   return (
     <div to = {`/menu/${item._id}`} className="card bg-base-100 w-96 shadow-xl relative md:my-10">
       <div
@@ -36,7 +43,7 @@ const Cards = ({ item }) => {
             {" "}
             <span className="textt-sm text-red">$</span> {item.price}
           </h5>
-          <button className="btn bg-green text-white">Buy Now</button>
+          <button className="btn bg-green text-white" onClick={handleAddToCart} >Add To Cart</button>
         </div>
       </div>
     </div>
