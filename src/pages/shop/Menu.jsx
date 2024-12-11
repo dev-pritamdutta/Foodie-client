@@ -15,7 +15,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/menu.json");
+        const response = await fetch("http://localhost:3000/menu");
         const data = await response.json();
         console.log(data);
         setMenu(data);
@@ -88,29 +88,27 @@ const Menu = () => {
         <div
           className="hero min-h-[650px] mt-20"
           style={{
-            backgroundImage:
-              `url(${menuBanner1})`,
+            backgroundImage: `url(${menuBanner1})`,
           }}
         >
           <div className="hero-overlay bg-opacity-70"></div>
           <div className="hero-content text-neutral-content text-center">
             <div className="space-y-2">
-            <h2 className="md:text-5xl text-5xl font-bold leading-snug md:leading-snug">
-              For the Love of Delicious
-              <span className="text-green ml-2">Food</span>
-            </h2>
-            <p className="text-xl text-white">
-              A vegetarian delight, our falafel wrap features crispy chickpea
-              falafel balls, creamy hummus, <br /> and fresh veggies, all
-              drizzled with smooth tahini sauce.
-            </p>
-            <button className="btn bg-green hover:bg-gray-800  px-8 py-3 font-semibold text-white rounded-full">
-              Order Now
-            </button>
+              <h2 className="md:text-5xl text-5xl font-bold leading-snug md:leading-snug">
+                For the Love of Delicious
+                <span className="text-green ml-2">Food</span>
+              </h2>
+              <p className="text-xl text-white">
+                A vegetarian delight, our falafel wrap features crispy chickpea
+                falafel balls, creamy hummus, <br /> and fresh veggies, all
+                drizzled with smooth tahini sauce.
+              </p>
+              <button className="btn bg-green hover:bg-gray-800  px-8 py-3 font-semibold text-white rounded-full">
+                Order Now
+              </button>
             </div>
           </div>
         </div>
-
       </div>
       {/* loding data */}
       <div className="section-container py-10">

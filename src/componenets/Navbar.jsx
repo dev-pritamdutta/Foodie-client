@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
 
   // handle scroll function-
   useEffect(() => {
