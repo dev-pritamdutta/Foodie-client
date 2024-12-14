@@ -3,8 +3,10 @@ import { FaHeart } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Swal from "sweetalert2";
+import useCart from "../../hooks/useCart";
 
 const Cards = ({ item }) => {
+  const [cart, refetch] = useCart();
   const { _id, name, image, recipe, category, price } = item;
 
   const [isHeartFillted, setIsHeartFillted] = useState(false);
@@ -25,47 +27,63 @@ const Cards = ({ item }) => {
 
     if (user && user?.email) {
       const cartItem = {
-        menuItemId: _id,
+        menuItemId: _id, // Ensure this is correct
         name,
         quantity: 1,
         image,
         price,
         email: user.email,
       };
-      // console.log(cartItem);
+      console.log(cartItem); // Log the data to ensure it is correct
 
-      fetch("http://localhost:3000/carts", {
+      fetch("http://localhost:6001/carts", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(cartItem),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((data) => {
+              throw new Error(data.message || "Something went wrong");
+            });
+          }
+          return res.json(); // If response is OK, return the response data
+        })
         .then((data) => {
-          // console.log(data);
-          if (data.insertedId) {
+          if (data._id) {
+            // Check if the cart item was created based on the response structure
             Swal.fire({
               position: "top-end",
               icon: "success",
-              title: "Item added To cart",
+              title: "Item added to cart",
               showConfirmButton: false,
               timer: 1500,
             });
+
+            refetch();
           }
+        })
+        .catch((error) => {
+          // Error: Display error message
+          Swal.fire({
+            text: error.message,
+            icon: "warning",
+          });
         });
-    }else{
+    } else {
       Swal.fire({
-        title: "Please Login?",
-        text: "Without an account can't able to ad products",
+        title: "Please Login",
+        text: "You need to log in to add products to the cart.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Signup Now!"
+        confirmButtonText: "Signup Now!",
       }).then((result) => {
         if (result.isConfirmed) {
-         navigate("/signup", {state: {from:location}})
+          navigate("/signup", { state: { from: location } });
         }
       });
     }

@@ -12,8 +12,8 @@ const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
   const { user } = useContext(AuthContext);
   const[cart, refetch] = useCart();
-  console.log(cart);
-  console.log(user);
+  // console.log(cart);
+  // console.log(user);
 
   // handle scroll function-
   useEffect(() => {

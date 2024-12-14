@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import useCart from "../../hooks/useCart";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -7,17 +7,14 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const CartPage = () => {
   const [cart, refetch] = useCart();
   const { user } = useContext(AuthContext);
-  const [cartItems, setCartItems] = useState([]);
 
-  //calculate price
-  const calculatePrice = (item) => {
-    return item.price * item.quantity;
-  };
+  // Calculate price
+  const calculatePrice = (item) => item.price * item.quantity;
 
-  //handle increase function
+  // Handle increase function
   const handleIncrease = (item) => {
-    // console.log(item._id);
-    fetch(`http://localhost:3000/carts/${item._id}`, {
+    // console.log(item); // Check item data
+    fetch(`http://localhost:6001/carts/${item._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -25,24 +22,17 @@ const CartPage = () => {
       body: JSON.stringify({ quantity: item.quantity + 1 }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        const updatedCart = cartItems.map((cartItem) => {
-          if (cartItem.id === item.id) {
-            return { ...cartItem, quantity: cartItem.quantity + 1 };
-          }
-          return cartItem;
-        });
-        refetch();
-        setCartItems(updatedCart);
-      });
-    refetch();
+      .then(() => {
+        refetch(); // Refresh cart after successful update
+      })
+      .catch((error) => console.error("Error increasing quantity:", error));
   };
+  
 
-  //hanlde decrease function
+  // Handle decrease function
   const handleDecrease = (item) => {
-    // console.log(item._id);
     if (item.quantity > 1) {
-      fetch(`http://localhost:3000/carts/${item._id}`, {
+      fetch(`http://localhost:6001/carts/${item._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -50,29 +40,16 @@ const CartPage = () => {
         body: JSON.stringify({ quantity: item.quantity - 1 }),
       })
         .then((res) => res.json())
-        .then((data) => {
-          const updatedCart = cartItems.map((cartItem) => {
-            if (cartItem.id === item.id) {
-              return { ...cartItem, quantity: cartItem.quantity - 1 };
-            }
-            return cartItem;
-          });
-          refetch();
-          setCartItems(updatedCart);
-        });
-      refetch();
+        .then(() => {
+          refetch(); // Refresh cart after successful update
+        })
+        .catch((error) => console.error("Error decreasing quantity:", error));
     } else {
-      alert("item can't be 0");
+      alert("Quantity cannot be less than 1");
     }
   };
 
-  //calculate total price
-  const cartSubTotal = cart.reduce((total, item) => {
-    return total + calculatePrice(item);
-  }, 0);
-  const orderTotal = cartSubTotal;
-
-  //handle delete btn
+  // Handle delete button
   const handleDelete = (item) => {
     Swal.fire({
       title: "Are you sure?",
@@ -84,38 +61,42 @@ const CartPage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/carts/${item._id}`, {
+        fetch(`http://localhost:6001/carts/${item._id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
-              refetch();
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your item has been deleted.",
-                icon: "success",
-              });
+              refetch(); // Refresh cart after successful deletion
+              Swal.fire("Deleted!", "Your item has been deleted.", "success");
             }
-          });
+          })
+          .catch((error) => console.error("Error deleting item:", error));
       }
     });
   };
 
+  // Calculate total price
+  const cartSubTotal = cart.reduce(
+    (total, item) => total + calculatePrice(item),
+    0
+  );
+  const orderTotal = cartSubTotal;
+
   return (
     <div className="section-container bg-gradient-to-r from-[#fafafa] from-0% to-[#fcfcfc] to-100% ">
-      {/* content */}
-      <div className="py-36 flex justify-center items-center ">
-        <div className=" px-4">
+      {/* Header */}
+      <div className="py-36 flex justify-center items-center">
+        <div className="px-4">
           <h2 className="md:text-5xl text-4xl font-bold leading-snug md:leading-snug">
-            Items added to the<span className="text-green mr-2"> Carts</span>
+            Items added to the <span className="text-green mr-2">Cart</span>
           </h2>
         </div>
       </div>
-      {/* table */}
+
+      {/* Table */}
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead className="bg-green text-white rounded-sm">
             <tr>
               <th>#</th>
@@ -128,14 +109,13 @@ const CartPage = () => {
           </thead>
           <tbody>
             {cart.map((item, index) => (
-              <tr key={index}>
+              <tr key={item._id}>
                 <td>{index + 1}</td>
-
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
-                        <img src={item.image} />
+                        <img src={item.image} alt={item.name} />
                       </div>
                     </div>
                   </div>
@@ -151,8 +131,8 @@ const CartPage = () => {
                   <input
                     type="number"
                     value={item.quantity}
-                    onChange={() => console.log(item.quantity)}
-                    className="w-10 mx-2 text-center overflow-hidden appearance-none"
+                    readOnly
+                    className="w-10 mx-2 text-center"
                   />
                   <button
                     className="btn btn-xs px-4 bg-slate-300"
@@ -162,34 +142,39 @@ const CartPage = () => {
                   </button>
                 </td>
                 <td>${calculatePrice(item).toFixed(2)}</td>
-                <th>
+                <td>
                   <button
                     className="btn btn-ghost btn-xs text-red"
                     onClick={() => handleDelete(item)}
                   >
-                    {" "}
-                    <FaTrash />{" "}
+                    <FaTrash />
                   </button>
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {/* customer details */}
+
+      {/* Customer and Shopping Details */}
       <div className="my-12 flex flex-col md:flex-row justify-between items-start">
         <div className="md:w-1/3 space-y-3">
-          <h3 className="font-medium bg-green text-center py-2">Customer Details</h3>
+          <h3 className="font-medium bg-green text-center py-2">
+            Customer Details
+          </h3>
           <p>Name: {user.displayName}</p>
           <p>Email: {user.email}</p>
-          <p>User_id: {user.uid}</p>
+          <p>User ID: {user.uid}</p>
         </div>
         <div className="md:w-1/3 space-y-3">
-          <h3 className="font-medium  bg-green text-center py-2">Shopping Details</h3>
+          <h3 className="font-medium bg-green text-center py-2">
+            Shopping Details
+          </h3>
           <p>Total Items: {cart.length}</p>
           <p>Total Price: ${orderTotal.toFixed(2)}</p>
-
-          <button className="btn bg-green text-white">Procceed Checkout</button>
+          <button className="btn bg-green text-white">
+            Proceed to Checkout
+          </button>
         </div>
       </div>
     </div>
